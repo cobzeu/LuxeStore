@@ -18,14 +18,17 @@ export default function ProductCard({ product, onAddToCart }) {
 
     const getCategoryLabel = (category) => {
         const labels = {
-            'shoes': 'Footwear',
-            'watches': 'Timepieces',
-            'scarf': 'Accessories',
-            'shawl': 'Accessories',
-            'suit-stitched': 'Ready to Wear',
+            'shawl': 'Shawls',
+            'muffler': 'Mufflers',
+            'suit-stitched': 'Stitched Suits',
             'suit-unstitched': 'Unstitched',
         };
         return labels[category] || category;
+    };
+
+    // Format price in PKR
+    const formatPrice = (price) => {
+        return `Rs. ${price.toLocaleString('en-PK')}`;
     };
 
     return (
@@ -82,10 +85,10 @@ export default function ProductCard({ product, onAddToCart }) {
                 <h3 className="product-name">{product.name}</h3>
                 <div className="product-price">
                     <span className="product-price-current">
-                        ${product.salePrice?.toFixed(2) || product.price.toFixed(2)}
+                        {formatPrice(product.salePrice || product.price)}
                     </span>
                     {product.salePrice && (
-                        <span className="product-price-original">${product.price.toFixed(2)}</span>
+                        <span className="product-price-original">{formatPrice(product.price)}</span>
                     )}
                 </div>
             </div>

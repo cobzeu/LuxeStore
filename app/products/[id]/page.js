@@ -76,14 +76,17 @@ export default function ProductDetail() {
 
     const getCategoryLabel = (category) => {
         const labels = {
-            'shoes': 'Footwear',
-            'watches': 'Timepieces',
-            'scarf': 'Accessories',
-            'shawl': 'Accessories',
-            'suit-stitched': 'Ready to Wear',
-            'suit-unstitched': 'Unstitched Fabric',
+            'shawl': 'Shawls',
+            'muffler': 'Mufflers',
+            'suit-stitched': 'Stitched Suits',
+            'suit-unstitched': 'Unstitched',
         };
         return labels[category] || category;
+    };
+
+    // Format price in PKR
+    const formatPrice = (price) => {
+        return `Rs. ${price.toLocaleString('en-PK')}`;
     };
 
     return (
@@ -116,11 +119,11 @@ export default function ProductDetail() {
 
                             <div className="product-detail-price">
                                 <span className="price-current">
-                                    ${product.salePrice?.toFixed(2) || product.price.toFixed(2)}
+                                    {formatPrice(product.salePrice || product.price)}
                                 </span>
                                 {product.salePrice && (
                                     <>
-                                        <span className="price-original">${product.price.toFixed(2)}</span>
+                                        <span className="price-original">{formatPrice(product.price)}</span>
                                         <span className="price-discount">-{discount}%</span>
                                     </>
                                 )}
@@ -185,19 +188,19 @@ export default function ProductDetail() {
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M5 12l5 5L20 7" />
                                     </svg>
-                                    <span>Free shipping on orders over $100</span>
+                                    <span>Free delivery on orders over Rs. 5,000</span>
                                 </div>
                                 <div className="feature-item">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M5 12l5 5L20 7" />
                                     </svg>
-                                    <span>30-day return policy</span>
+                                    <span>7-day easy return policy</span>
                                 </div>
                                 <div className="feature-item">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M5 12l5 5L20 7" />
                                     </svg>
-                                    <span>Premium quality guarantee</span>
+                                    <span>100% authentic products</span>
                                 </div>
                             </div>
                         </div>

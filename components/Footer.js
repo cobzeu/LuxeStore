@@ -44,28 +44,31 @@ export default function Footer() {
                         <nav className="footer-links">
                             <Link href="/shop" className="footer-link">All Products</Link>
                             <Link href="/collections" className="footer-link">Collections</Link>
-                            <Link href="/collections/shoes" className="footer-link">Shoes</Link>
-                            <Link href="/collections/watches" className="footer-link">Watches</Link>
+                            <Link href="/collections/shawl" className="footer-link">Shawls</Link>
+                            <Link href="/collections/muffler" className="footer-link">Mufflers</Link>
                         </nav>
                     </div>
 
                     <div className="footer-column">
                         <h4>Categories</h4>
                         <nav className="footer-links">
-                            <Link href="/collections/scarf" className="footer-link">Scarves</Link>
                             <Link href="/collections/shawl" className="footer-link">Shawls</Link>
+                            <Link href="/collections/muffler" className="footer-link">Mufflers</Link>
                             <Link href="/collections/suit-stitched" className="footer-link">Stitched Suits</Link>
-                            <Link href="/collections/suit-unstitched" className="footer-link">Unstitched Fabric</Link>
+                            <Link href="/collections/suit-unstitched" className="footer-link">Unstitched Suits</Link>
                         </nav>
                     </div>
 
                     <div className="footer-column">
-                        <h4>Help</h4>
+                        <h4>Contact Us</h4>
                         <nav className="footer-links">
+                            <a href="mailto:ntextileuniversity@gmail.com" className="footer-link">
+                                📧 ntextileuniversity@gmail.com
+                            </a>
+                            <a href="https://wa.me/923486897247" target="_blank" rel="noopener noreferrer" className="footer-link">
+                                📱 WhatsApp: 0348-6897247
+                            </a>
                             <Link href="/cart" className="footer-link">View Cart</Link>
-                            <a href="mailto:support@luxe.com" className="footer-link">Contact Us</a>
-                            <a href="mailto:support@luxe.com" className="footer-link">Shipping Info</a>
-                            <a href="mailto:support@luxe.com" className="footer-link">Returns</a>
                         </nav>
                     </div>
                 </div>

@@ -39,10 +39,16 @@ export default function CartPage() {
         return sum + (price * item.quantity);
     }, 0);
 
-    const shipping = subtotal > 100 ? 0 : 15;
+    // Free shipping over Rs. 5,000
+    const shipping = subtotal > 5000 ? 0 : 350;
     const total = subtotal + shipping;
 
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Format price in PKR
+    const formatPrice = (price) => {
+        return `Rs. ${price.toLocaleString('en-PK')}`;
+    };
 
     return (
         <>
@@ -99,7 +105,7 @@ export default function CartPage() {
 
                                         <div className="cart-item-actions">
                                             <span className="cart-item-price">
-                                                ${((item.salePrice || item.price) * item.quantity).toFixed(2)}
+                                                {formatPrice((item.salePrice || item.price) * item.quantity)}
                                             </span>
                                             <button
                                                 className="remove-btn"
@@ -118,23 +124,23 @@ export default function CartPage() {
 
                                 <div className="summary-row">
                                     <span>Subtotal</span>
-                                    <span>${subtotal.toFixed(2)}</span>
+                                    <span>{formatPrice(subtotal)}</span>
                                 </div>
 
                                 <div className="summary-row">
-                                    <span>Shipping</span>
-                                    <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                                    <span>Delivery</span>
+                                    <span>{shipping === 0 ? 'Free' : formatPrice(shipping)}</span>
                                 </div>
 
                                 {shipping > 0 && (
                                     <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: 'var(--spacing-sm)' }}>
-                                        Add ${(100 - subtotal).toFixed(2)} more for free shipping
+                                        Add {formatPrice(5000 - subtotal)} more for free delivery
                                     </p>
                                 )}
 
                                 <div className="summary-total">
                                     <span>Total</span>
-                                    <span style={{ color: 'var(--color-primary)' }}>${total.toFixed(2)}</span>
+                                    <span style={{ color: 'var(--color-primary)' }}>{formatPrice(total)}</span>
                                 </div>
 
                                 <button className="btn btn-primary checkout-btn">
