@@ -57,8 +57,8 @@ export default function Header({ cartCount = 0 }) {
                     <Link href="/" className="nav-link">Home</Link>
                     <Link href="/shop" className="nav-link">Shop</Link>
                     <Link href="/collections" className="nav-link">Collections</Link>
-                    <Link href="/collections/watches" className="nav-link">Watches</Link>
-                    <Link href="/collections/shoes" className="nav-link">Shoes</Link>
+                    <Link href="/collections/shawl" className="nav-link">Shawls</Link>
+                    <Link href="/collections/men-stitched" className="nav-link">Men</Link>
                 </nav>
 
                 <div className="header-actions">
@@ -147,8 +147,8 @@ export default function Header({ cartCount = 0 }) {
                         <Link href="/" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>
                         <Link href="/shop" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Shop</Link>
                         <Link href="/collections" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Collections</Link>
-                        <Link href="/collections/watches" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Watches</Link>
-                        <Link href="/collections/shoes" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Shoes</Link>
+                        <Link href="/collections/shawl" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Shawls</Link>
+                        <Link href="/collections/men-stitched" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Men</Link>
                         <Link href="/cart" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Cart</Link>
                         {user ? (
                             <>
