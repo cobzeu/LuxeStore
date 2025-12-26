@@ -5,7 +5,7 @@ export default function PromoBanner() {
         <section className="promo-banner">
             <div className="container">
                 <div className="promo-content">
-                    <h2 className="promo-title">Winter Sale - Up to 30% Off</h2>
+                    <h2 className="promo-title">Winter Sale - Up to 25% Off</h2>
                     <p className="promo-text">
                         Elevate your wardrobe with our premium collection.
                         Limited time offer on selected items.

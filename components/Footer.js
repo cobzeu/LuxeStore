@@ -12,7 +12,7 @@ export default function Footer() {
                             We curate the finest pieces to elevate your style.
                         </p>
                         <div className="footer-social">
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
+                            <a href="https://www.instagram.com/luxe23727?utm_source=qr&igsh=Ymd3amhncmplNzZu" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -45,17 +45,17 @@ export default function Footer() {
                             <Link href="/shop" className="footer-link">All Products</Link>
                             <Link href="/collections" className="footer-link">Collections</Link>
                             <Link href="/collections/shawl" className="footer-link">Shawls</Link>
-                            <Link href="/collections/muffler" className="footer-link">Mufflers</Link>
+                            <Link href="/collections/men-stitched" className="footer-link">Men's Collection</Link>
                         </nav>
                     </div>
 
                     <div className="footer-column">
-                        <h4>Categories</h4>
+                        <h4>Policies</h4>
                         <nav className="footer-links">
-                            <Link href="/collections/shawl" className="footer-link">Shawls</Link>
-                            <Link href="/collections/muffler" className="footer-link">Mufflers</Link>
-                            <Link href="/collections/suit-stitched" className="footer-link">Stitched Suits</Link>
-                            <Link href="/collections/suit-unstitched" className="footer-link">Unstitched Suits</Link>
+                            <Link href="/shipping" className="footer-link">Shipping & Delivery</Link>
+                            <Link href="/returns" className="footer-link">Returns & Exchange</Link>
+                            <Link href="/privacy" className="footer-link">Privacy Policy</Link>
+                            <Link href="/terms" className="footer-link">Terms of Service</Link>
                         </nav>
                     </div>
 
@@ -78,8 +78,8 @@ export default function Footer() {
                         © {new Date().getFullYear()} LUXE Fashion. All rights reserved.
                     </p>
                     <div className="footer-legal">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
+                        <Link href="/privacy">Privacy Policy</Link>
+                        <Link href="/terms">Terms of Service</Link>
                     </div>
                 </div>
             </div>
