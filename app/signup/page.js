@@ -62,7 +62,7 @@ export default function SignUpPage() {
                         <div className="auth-card">
                             <div className="auth-header">
                                 <h1>Create Account</h1>
-                                <p>Join LUXE for exclusive access to premium fashion</p>
+                                <p>Join LuxePakistan for exclusive access to premium fashion</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="auth-form">
@@ -140,7 +140,7 @@ export default function SignUpPage() {
                         </div>
 
                         <div className="auth-features">
-                            <h3>Why join LUXE?</h3>
+                            <h3>Why join LuxePakistan?</h3>
                             <ul>
                                 <li>
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

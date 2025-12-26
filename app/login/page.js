@@ -48,7 +48,7 @@ export default function LoginPage() {
                         <div className="auth-card">
                             <div className="auth-header">
                                 <h1>Welcome Back</h1>
-                                <p>Sign in to your LUXE account</p>
+                                <p>Sign in to your LuxePakistan account</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="auth-form">
@@ -108,7 +108,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="auth-features">
-                            <h3>Welcome to LUXE</h3>
+                            <h3>Welcome to LuxePakistan</h3>
                             <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--spacing-lg)' }}>
                                 Your destination for premium fashion and accessories.
                             </p>

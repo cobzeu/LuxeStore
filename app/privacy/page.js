@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
 
                         <section className="policy-section">
                             <h2>Introduction</h2>
-                            <p>LUXE Fashion ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or make a purchase.</p>
+                            <p>LuxePakistan ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or make a purchase.</p>
                         </section>
 
                         <section className="policy-section">

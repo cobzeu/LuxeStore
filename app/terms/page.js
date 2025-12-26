@@ -15,7 +15,7 @@ export default function TermsOfService() {
 
                         <section className="policy-section">
                             <h2>Agreement to Terms</h2>
-                            <p>By accessing or using the LUXE Fashion website, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
+                            <p>By accessing or using the LuxePakistan website, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
                         </section>
 
                         <section className="policy-section">
@@ -77,7 +77,7 @@ export default function TermsOfService() {
 
                         <section className="policy-section">
                             <h2>Limitation of Liability</h2>
-                            <p>LUXE Fashion shall not be liable for:</p>
+                            <p>LuxePakistan shall not be liable for:</p>
                             <ul>
                                 <li>Indirect or consequential damages</li>
                                 <li>Loss of profits or business interruption</li>

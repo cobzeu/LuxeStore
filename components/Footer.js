@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="container">
                 <div className="footer-grid">
                     <div className="footer-brand">
-                        <Link href="/" className="logo">LUXE</Link>
+                        <Link href="/" className="logo">LuxePakistan</Link>
                         <p className="footer-description">
                             Premium fashion for the discerning individual.
                             We curate the finest pieces to elevate your style.
@@ -75,7 +75,7 @@ export default function Footer() {
 
                 <div className="footer-bottom">
                     <p className="footer-copyright">
-                        © {new Date().getFullYear()} LUXE Fashion. All rights reserved.
+                        © {new Date().getFullYear()} LuxePakistan. All rights reserved.
                     </p>
                     <div className="footer-legal">
                         <Link href="/privacy">Privacy Policy</Link>

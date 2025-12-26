@@ -15,7 +15,7 @@ export default function ReturnsPolicy() {
 
                         <section className="policy-section">
                             <h2>Our Return Promise</h2>
-                            <p>At LUXE, we want you to be completely satisfied with your purchase. If you're not happy with your order, we offer hassle-free returns and exchanges within the specified timeframe.</p>
+                            <p>At LuxePakistan, we want you to be completely satisfied with your purchase. If you're not happy with your order, we offer hassle-free returns and exchanges within the specified timeframe.</p>
                         </section>
 
                         <section className="policy-section">

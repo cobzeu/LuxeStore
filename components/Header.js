@@ -50,7 +50,7 @@ export default function Header({ cartCount = 0 }) {
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 <Link href="/" className="logo">
-                    LUXE
+                    LuxePakistan
                 </Link>
 
                 <nav className="nav-menu">

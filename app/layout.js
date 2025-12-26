@@ -15,11 +15,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "LUXE Fashion | Premium Clothing & Accessories",
+  title: "LuxePakistan | Premium Pakistani Fashion & Clothing",
   description: "Discover premium fashion - shoes, watches, scarves, shawls, and luxury suits. Elevate your style with our curated collection.",
   keywords: "fashion, luxury, shoes, watches, scarf, shawl, suits, premium clothing",
   openGraph: {
-    title: "LUXE Fashion | Premium Clothing & Accessories",
+    title: "LuxePakistan | Premium Pakistani Fashion & Clothing",
     description: "Discover premium fashion for the modern individual.",
     type: "website",
   },
