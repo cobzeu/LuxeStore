@@ -175,13 +175,104 @@ Thank you for shopping with LuxePakistan!
             replyTo: 'luxepakistan5@gmail.com',
             subject: `Your LuxePakistan Order ${order.order_number} is Confirmed`,
             html: emailHtml,
-            text: textVersion, // Plain text version helps avoid spam
+            text: textVersion,
         });
 
         if (error) {
             console.error('Email send error:', error);
             return Response.json({ success: false, error: error.message }, { status: 500 });
         }
+
+        // Send notification to company email
+        const adminTextVersion = `
+NEW ORDER RECEIVED!
+
+Order Number: ${order.order_number}
+Date: ${new Date().toLocaleString('en-PK')}
+
+CUSTOMER DETAILS:
+Name: ${order.customer_name}
+Phone: ${order.phone}
+Email: ${order.email || 'Not provided'}
+
+DELIVERY ADDRESS:
+${order.address}
+${order.city}${order.postal_code ? ', ' + order.postal_code : ''}
+
+ITEMS ORDERED:
+${itemsText}
+
+Subtotal: ${formatPrice(order.subtotal)}
+Delivery: ${order.shipping === 0 ? 'FREE' : formatPrice(order.shipping)}
+TOTAL: ${formatPrice(order.total)}
+
+Payment Method: Cash on Delivery
+
+${order.notes ? 'Customer Notes: ' + order.notes : ''}
+        `.trim();
+
+        const adminHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>New Order - LuxePakistan</title></head>
+<body style="margin: 0; padding: 20px; background-color: #f5f5f5; font-family: Arial, sans-serif;">
+    <table width="600" cellpadding="0" cellspacing="0" style="background: #fff; border-radius: 8px; overflow: hidden; margin: 0 auto;">
+        <tr>
+            <td style="background: #1a1a1a; padding: 20px; text-align: center;">
+                <h1 style="margin: 0; color: #c9a96e; font-size: 24px;">🛒 New Order Received!</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 30px;">
+                <div style="background: #e8f5e9; border: 1px solid #4caf50; border-radius: 8px; padding: 15px; margin-bottom: 20px; text-align: center;">
+                    <h2 style="margin: 0; color: #2e7d32;">Order #${order.order_number}</h2>
+                    <p style="margin: 5px 0 0; color: #666;">${new Date().toLocaleString('en-PK')}</p>
+                </div>
+
+                <h3 style="color: #1a1a1a; border-bottom: 2px solid #c9a96e; padding-bottom: 10px;">Customer Details</h3>
+                <table width="100%" style="margin-bottom: 20px;">
+                    <tr><td style="padding: 5px 0; color: #666;">Name:</td><td style="padding: 5px 0;"><strong>${order.customer_name}</strong></td></tr>
+                    <tr><td style="padding: 5px 0; color: #666;">Phone:</td><td style="padding: 5px 0;"><strong><a href="tel:${order.phone}">${order.phone}</a></strong></td></tr>
+                    <tr><td style="padding: 5px 0; color: #666;">Email:</td><td style="padding: 5px 0;">${order.email || 'Not provided'}</td></tr>
+                </table>
+
+                <h3 style="color: #1a1a1a; border-bottom: 2px solid #c9a96e; padding-bottom: 10px;">Delivery Address</h3>
+                <p style="background: #f8f8f8; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    ${order.address}<br>${order.city}${order.postal_code ? ', ' + order.postal_code : ''}
+                </p>
+
+                <h3 style="color: #1a1a1a; border-bottom: 2px solid #c9a96e; padding-bottom: 10px;">Order Items</h3>
+                <table width="100%" style="margin-bottom: 20px;">
+                    ${order.items.map(item => `
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px 0;">${item.name} × ${item.quantity}</td>
+                            <td style="padding: 10px 0; text-align: right;">${formatPrice(item.price * item.quantity)}</td>
+                        </tr>
+                    `).join('')}
+                </table>
+
+                <table width="100%" style="background: #1a1a1a; border-radius: 8px; overflow: hidden;">
+                    <tr><td style="padding: 10px 15px; color: #999;">Subtotal</td><td style="padding: 10px 15px; color: #fff; text-align: right;">${formatPrice(order.subtotal)}</td></tr>
+                    <tr><td style="padding: 10px 15px; color: #999;">Delivery</td><td style="padding: 10px 15px; color: #fff; text-align: right;">${order.shipping === 0 ? 'FREE' : formatPrice(order.shipping)}</td></tr>
+                    <tr style="background: #c9a96e;"><td style="padding: 15px; color: #1a1a1a; font-weight: bold;">TOTAL (COD)</td><td style="padding: 15px; color: #1a1a1a; text-align: right; font-size: 20px; font-weight: bold;">${formatPrice(order.total)}</td></tr>
+                </table>
+
+                ${order.notes ? `<div style="margin-top: 20px; background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 8px;"><strong>Customer Notes:</strong> ${order.notes}</div>` : ''}
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+        `;
+
+        // Send to company email (non-blocking)
+        resend.emails.send({
+            from: 'LuxePakistan Orders <orders@luxepakistan.com>',
+            to: 'luxepakistan5@gmail.com',
+            subject: `🛒 New Order #${order.order_number} - ${formatPrice(order.total)}`,
+            html: adminHtml,
+            text: adminTextVersion,
+        }).catch(err => console.error('Admin email error:', err));
 
         return Response.json({ success: true, messageId: data?.id });
     } catch (error) {
