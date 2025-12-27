@@ -89,7 +89,7 @@ export default function Header({ cartCount = 0 }) {
     };
 
     const handleProductClick = (productId) => {
-        router.push(`/product/${productId}`);
+        router.push(`/products/${productId}`);
         setSearchOpen(false);
         setSearchQuery('');
         setSearchResults([]);
