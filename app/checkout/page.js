@@ -195,10 +195,18 @@ export default function CheckoutPage() {
                             <h1>Order Placed Successfully!</h1>
                             <p className="order-number">Order Number: <strong>{orderNumber}</strong></p>
 
+                            {/* Total Amount Display */}
+                            <div className="order-total-display">
+                                <span className="total-label">Total Amount</span>
+                                <span className="total-amount">{formatPrice(total)}</span>
+                                <span className="total-note">Cash on Delivery</span>
+                            </div>
+
                             <div className="order-details-box">
                                 <h3>What's Next?</h3>
                                 <ul>
-                                    <li>📱 You will receive an SMS/WhatsApp confirmation shortly</li>
+                                    <li>� You will receive a confirmation email shortly</li>
+                                    <li>📱 SMS/WhatsApp confirmation will follow</li>
                                     <li>📦 Your order will be dispatched within 1-2 business days</li>
                                     <li>🚚 Expected delivery: 2-5 business days</li>
                                     <li>💵 Pay <strong>{formatPrice(total)}</strong> on delivery (COD)</li>

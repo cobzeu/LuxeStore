@@ -2300,6 +2300,35 @@ h4 {
   color: var(--color-primary);
 }
 
+.order-total-display {
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.15) 0%, rgba(201, 169, 110, 0.05) 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.order-total-display .total-label {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.order-total-display .total-amount {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.order-total-display .total-note {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
 .order-details-box {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
