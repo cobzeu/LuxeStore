@@ -22,7 +22,7 @@ export default function Footer() {
                             We curate the finest pieces to elevate your style.
                         </p>
                         <div className="footer-social">
-                            <a href="https://www.instagram.com/luxe23727?utm_source=qr&igsh=Ymd3amhncmplNzZu" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
+                            <a href="https://www.instagram.com/luxepakistan5.onlie?utm_source=qr&igsh=Ymd3amhncmplNzZu" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -72,8 +72,8 @@ export default function Footer() {
                     <div className="footer-column">
                         <h4>Contact Us</h4>
                         <nav className="footer-links">
-                            <a href="mailto:ntextileuniversity@gmail.com" className="footer-link">
-                                📧 ntextileuniversity@gmail.com
+                            <a href="mailto:luxepakistan5@gmail.com" className="footer-link">
+                                📧 luxepakistan5@gmail.com
                             </a>
                             <a href="https://wa.me/923486897247" target="_blank" rel="noopener noreferrer" className="footer-link">
                                 📱 WhatsApp: 0348-6897247
