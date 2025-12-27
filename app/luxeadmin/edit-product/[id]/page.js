@@ -9,6 +9,8 @@ export default function EditProduct() {
     const params = useParams();
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [imagePreview, setImagePreview] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -33,7 +35,6 @@ export default function EditProduct() {
 
     const loadProduct = async () => {
         try {
-            // Get product from API
             const response = await fetch('/api/admin/products');
             const data = await response.json();
 
@@ -51,6 +52,7 @@ export default function EditProduct() {
                         colors: Array.isArray(product.colors) ? product.colors.join(', ') : '',
                         inStock: product.inStock !== false
                     });
+                    setImagePreview(product.image || '');
                 }
             }
         } catch (error) {
@@ -68,6 +70,40 @@ export default function EditProduct() {
         } catch (error) {
             console.error('Failed to load categories:', error);
         }
+    };
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+
+        setUploading(true);
+        try {
+            const uploadFormData = new FormData();
+            uploadFormData.append('file', file);
+
+            const response = await fetch('/api/admin/upload-image', {
+                method: 'POST',
+                body: uploadFormData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setFormData({ ...formData, image: data.url });
+            } else {
+                alert('Failed to upload image: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            alert('Failed to upload image');
+        }
+        setUploading(false);
     };
 
     const handleSubmit = async (e) => {
@@ -176,14 +212,34 @@ export default function EditProduct() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="image">Image URL *</label>
-                        <input
-                            type="url"
-                            id="image"
-                            required
-                            value={formData.image}
-                            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                        />
+                        <label htmlFor="image">Product Image *</label>
+                        <div className="image-upload-section">
+                            <input
+                                type="file"
+                                id="imageFile"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                style={{ display: 'none' }}
+                            />
+                            <label htmlFor="imageFile" className="upload-button">
+                                {uploading ? 'Uploading...' : '📁 Choose Image File'}
+                            </label>
+                            <span style={{ margin: '0 10px', color: 'var(--color-text-muted)' }}>OR</span>
+                            <input
+                                type="url"
+                                id="image"
+                                value={formData.image}
+                                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                placeholder="Paste image URL"
+                                style={{ flex: 1 }}
+                            />
+                        </div>
+                        {imagePreview && (
+                            <div className="image-preview">
+                                <img src={imagePreview} alt="Preview" />
+                            </div>
+                        )}
+                        <small>Upload a file or paste an image URL</small>
                     </div>
 
                     <div className="form-group">
@@ -317,6 +373,41 @@ export default function EditProduct() {
                 .form-group textarea:focus {
                     outline: none;
                     border-color: var(--color-primary);
+                }
+
+                .image-upload-section {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .upload-button {
+                    padding: 12px 20px;
+                    background: var(--color-primary);
+                    color: var(--color-text-dark);
+                    border-radius: var(--radius-md);
+                    cursor: pointer;
+                    font-weight: 500;
+                    transition: all var(--transition-fast);
+                    white-space: nowrap;
+                }
+
+                .upload-button:hover {
+                    opacity: 0.9;
+                }
+
+                .image-preview {
+                    margin-top: 15px;
+                    border: 1px solid var(--color-border);
+                    border-radius: var(--radius-md);
+                    overflow: hidden;
+                    max-width: 300px;
+                }
+
+                .image-preview img {
+                    width: 100%;
+                    height: auto;
+                    display: block;
                 }
 
                 .form-actions {
