@@ -143,9 +143,9 @@ export default function CartPage() {
                                     <span style={{ color: 'var(--color-primary)' }}>{formatPrice(total)}</span>
                                 </div>
 
-                                <button className="btn btn-primary checkout-btn">
+                                <Link href="/checkout" className="btn btn-primary checkout-btn">
                                     Proceed to Checkout
-                                </button>
+                                </Link>
 
                                 <Link
                                     href="/"

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -50,7 +51,14 @@ export default function Header({ cartCount = 0 }) {
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 <Link href="/" className="logo">
-                    LuxePakistan
+                    <Image
+                        src="/images/logo.svg"
+                        alt="LuxePakistan"
+                        width={40}
+                        height={40}
+                        className="logo-image"
+                    />
+                    <span className="logo-text">LuxePakistan</span>
                 </Link>
 
                 <nav className="nav-menu">

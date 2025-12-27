@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
     return (
@@ -6,7 +7,16 @@ export default function Footer() {
             <div className="container">
                 <div className="footer-grid">
                     <div className="footer-brand">
-                        <Link href="/" className="logo">LuxePakistan</Link>
+                        <Link href="/" className="logo">
+                            <Image
+                                src="/images/logo.svg"
+                                alt="LuxePakistan"
+                                width={35}
+                                height={35}
+                                className="logo-image"
+                            />
+                            <span className="logo-text">LuxePakistan</span>
+                        </Link>
                         <p className="footer-description">
                             Premium fashion for the discerning individual.
                             We curate the finest pieces to elevate your style.
