@@ -13,6 +13,7 @@ export default function CheckoutPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [orderPlaced, setOrderPlaced] = useState(false);
     const [orderNumber, setOrderNumber] = useState('');
+    const [orderTotal, setOrderTotal] = useState(0);
     const [orderError, setOrderError] = useState('');
 
     const [formData, setFormData] = useState({
@@ -141,6 +142,7 @@ export default function CheckoutPage() {
 
         if (result.success) {
             setOrderNumber(newOrderNumber);
+            setOrderTotal(total); // Save total before clearing cart
 
             // Send confirmation email if email provided
             if (formData.email) {
@@ -167,6 +169,7 @@ export default function CheckoutPage() {
             // If database fails, still process order (fallback)
             console.error('Database error:', result.error);
             setOrderNumber(newOrderNumber);
+            setOrderTotal(total); // Save total before clearing cart
             localStorage.removeItem('luxe-cart');
             setCart([]);
             setOrderPlaced(true);
@@ -198,7 +201,7 @@ export default function CheckoutPage() {
                             {/* Total Amount Display */}
                             <div className="order-total-display">
                                 <span className="total-label">Total Amount</span>
-                                <span className="total-amount">{formatPrice(total)}</span>
+                                <span className="total-amount">{formatPrice(orderTotal)}</span>
                                 <span className="total-note">Cash on Delivery</span>
                             </div>
 
@@ -209,7 +212,7 @@ export default function CheckoutPage() {
                                     <li>📱 SMS/WhatsApp confirmation will follow</li>
                                     <li>📦 Your order will be dispatched within 1-2 business days</li>
                                     <li>🚚 Expected delivery: 2-5 business days</li>
-                                    <li>💵 Pay <strong>{formatPrice(total)}</strong> on delivery (COD)</li>
+                                    <li>💵 Pay <strong>{formatPrice(orderTotal)}</strong> on delivery (COD)</li>
                                 </ul>
                             </div>
 
