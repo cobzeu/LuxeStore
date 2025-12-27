@@ -53,6 +53,15 @@ export default function ProductDetail() {
         setTimeout(() => setAddedToCart(false), 2000);
     };
 
+    const buyNow = () => {
+        if (!product) return;
+
+        // Clear cart and add only this product
+        const newCart = [{ ...product, quantity, size: selectedSize }];
+        localStorage.setItem('luxe-cart', JSON.stringify(newCart));
+        router.push('/checkout');
+    };
+
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     if (!product) {
@@ -177,6 +186,14 @@ export default function ProductDetail() {
                                 }}
                             >
                                 {addedToCart ? '✓ Added to Cart' : 'Add to Cart'}
+                            </button>
+
+                            {/* Buy It Now */}
+                            <button
+                                className="btn btn-secondary buy-now-btn"
+                                onClick={buyNow}
+                            >
+                                Buy It Now
                             </button>
 
                             <Link href="/cart" className="btn btn-outline" style={{ width: '100%' }}>
