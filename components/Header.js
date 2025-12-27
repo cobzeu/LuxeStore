@@ -2,13 +2,20 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { products } from '@/lib/products';
 
 export default function Header({ cartCount = 0 }) {
+    const router = useRouter();
+    const searchInputRef = useRef(null);
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
 
     const { user, loading, signOut } = useAuth();
 
@@ -31,9 +38,65 @@ export default function Header({ cartCount = 0 }) {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
+    // Focus search input when modal opens
+    useEffect(() => {
+        if (searchOpen && searchInputRef.current) {
+            searchInputRef.current.focus();
+        }
+    }, [searchOpen]);
+
+    // Handle escape key to close search
+    useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                setSearchOpen(false);
+                setSearchQuery('');
+                setSearchResults([]);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, []);
+
+    // Search products when query changes
+    useEffect(() => {
+        if (searchQuery.trim().length > 0) {
+            const query = searchQuery.toLowerCase();
+            const filtered = products.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.category.toLowerCase().includes(query) ||
+                product.description?.toLowerCase().includes(query)
+            ).slice(0, 6); // Limit to 6 results
+            setSearchResults(filtered);
+        } else {
+            setSearchResults([]);
+        }
+    }, [searchQuery]);
+
     const handleSignOut = async () => {
         await signOut();
         setUserMenuOpen(false);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+            setSearchOpen(false);
+            setSearchQuery('');
+            setSearchResults([]);
+        }
+    };
+
+    const handleProductClick = (productId) => {
+        router.push(`/product/${productId}`);
+        setSearchOpen(false);
+        setSearchQuery('');
+        setSearchResults([]);
+    };
+
+    const formatPrice = (price) => {
+        return `Rs. ${price.toLocaleString('en-PK')}`;
     };
 
     const getUserInitials = () => {
@@ -70,7 +133,7 @@ export default function Header({ cartCount = 0 }) {
                 </nav>
 
                 <div className="header-actions">
-                    <button className="header-icon" aria-label="Search">
+                    <button className="header-icon" aria-label="Search" onClick={() => setSearchOpen(true)}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.3-4.3"></path>
@@ -174,6 +237,77 @@ export default function Header({ cartCount = 0 }) {
                             </>
                         )}
                     </nav>
+                </div>
+            )}
+
+            {/* Search Modal */}
+            {searchOpen && (
+                <div className="search-modal-overlay" onClick={() => setSearchOpen(false)}>
+                    <div className="search-modal" onClick={(e) => e.stopPropagation()}>
+                        <form onSubmit={handleSearchSubmit} className="search-form">
+                            <svg className="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </svg>
+                            <input
+                                ref={searchInputRef}
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search products..."
+                                className="search-input"
+                            />
+                            <button
+                                type="button"
+                                className="search-close"
+                                onClick={() => { setSearchOpen(false); setSearchQuery(''); setSearchResults([]); }}
+                            >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </form>
+
+                        {searchResults.length > 0 && (
+                            <div className="search-results">
+                                {searchResults.map((product) => (
+                                    <div
+                                        key={product.id}
+                                        className="search-result-item"
+                                        onClick={() => handleProductClick(product.id)}
+                                    >
+                                        <div className="search-result-image">
+                                            <img src={product.image} alt={product.name} />
+                                        </div>
+                                        <div className="search-result-info">
+                                            <h4>{product.name}</h4>
+                                            <p>{product.category}</p>
+                                        </div>
+                                        <span className="search-result-price">
+                                            {formatPrice(product.salePrice || product.price)}
+                                        </span>
+                                    </div>
+                                ))}
+                                {searchQuery.trim() && (
+                                    <button
+                                        type="button"
+                                        className="search-view-all"
+                                        onClick={handleSearchSubmit}
+                                    >
+                                        View all results for "{searchQuery}"
+                                    </button>
+                                )}
+                            </div>
+                        )}
+
+                        {searchQuery.trim() && searchResults.length === 0 && (
+                            <div className="search-no-results">
+                                <p>No products found for "{searchQuery}"</p>
+                                <span>Try a different search term</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
         </header>
