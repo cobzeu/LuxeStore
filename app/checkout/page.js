@@ -141,6 +141,24 @@ export default function CheckoutPage() {
 
         if (result.success) {
             setOrderNumber(newOrderNumber);
+
+            // Send confirmation email if email provided
+            if (formData.email) {
+                try {
+                    await fetch('/api/send-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            order: orderData,
+                            customerEmail: formData.email
+                        })
+                    });
+                } catch (emailError) {
+                    console.error('Email send error:', emailError);
+                    // Don't block order completion if email fails
+                }
+            }
+
             // Clear cart
             localStorage.removeItem('luxe-cart');
             setCart([]);
