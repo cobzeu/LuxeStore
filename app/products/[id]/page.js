@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getProductById, products } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
+import ReviewSection from '@/components/ReviewSection';
 
 export default function ProductDetail() {
     const params = useParams();
@@ -205,6 +206,9 @@ export default function ProductDetail() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Reviews Section */}
+                    <ReviewSection productId={product.id} productName={product.name} />
 
                     {/* Related Products */}
                     <section className="section" style={{ paddingBottom: 0 }}>
