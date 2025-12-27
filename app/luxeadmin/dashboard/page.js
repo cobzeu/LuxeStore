@@ -3,32 +3,51 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AdminDashboard() {
     const router = useRouter();
     const [stats, setStats] = useState({ orders: 0, revenue: 0, pending: 0, products: 0 });
     const [orders, setOrders] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('orders'); // orders, products
+    const [activeTab, setActiveTab] = useState('orders');
 
     useEffect(() => {
-        // Check authentication
         if (localStorage.getItem('luxe_admin_token') !== 'authenticated') {
             router.push('/luxeadmin');
             return;
         }
-
         loadData();
     }, [router]);
 
     const loadData = async () => {
         try {
-            const response = await fetch('/api/admin/data');
-            const data = await response.json();
+            // Load orders and stats
+            const ordersRes = await fetch('/api/admin/data');
+            const ordersData = await ordersRes.json();
 
-            if (data.success) {
-                setStats(data.stats);
-                setOrders(data.orders || []);
+            if (ordersData.success) {
+                setStats(ordersData.stats);
+                setOrders(ordersData.orders || []);
+            }
+
+            // Load products
+            const productsRes = await fetch('/api/admin/products');
+            const productsData = await productsRes.json();
+
+            if (productsData.success) {
+                setProducts(productsData.products || []);
+                setStats(prev => ({ ...prev, products: productsData.products?.length || 0 }));
+            }
+
+            // Load categories
+            const categoriesRes = await fetch('/api/admin/categories');
+            const categoriesData = await categoriesRes.json();
+
+            if (categoriesData.success) {
+                setCategories(categoriesData.categories || []);
             }
         } catch (error) {
             console.error('Failed to load data:', error);
@@ -50,10 +69,28 @@ export default function AdminDashboard() {
             });
 
             if (response.ok) {
-                await loadData(); // Reload data
+                await loadData();
             }
         } catch (error) {
             console.error('Failed to update order:', error);
+        }
+    };
+
+    const deleteProduct = async (productId) => {
+        if (!confirm('Are you sure you want to delete this product?')) return;
+
+        try {
+            const response = await fetch(`/api/admin/products/${productId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                await loadData();
+                alert('Product deleted successfully');
+            }
+        } catch (error) {
+            console.error('Failed to delete product:', error);
+            alert('Failed to delete product');
         }
     };
 
@@ -122,10 +159,17 @@ export default function AdminDashboard() {
                 >
                     Products Management
                 </button>
+                <button
+                    className={`admin-tab ${activeTab === 'categories' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('categories')}
+                >
+                    Categories
+                </button>
             </div>
 
             {/* Content */}
             <div className="admin-content">
+                {/* ORDERS TAB */}
                 {activeTab === 'orders' && (
                     <div className="orders-section">
                         <h2>All Orders</h2>
@@ -185,18 +229,77 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
+                {/* PRODUCTS TAB */}
                 {activeTab === 'products' && (
                     <div className="products-section">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                            <h2>Products</h2>
+                            <h2>All Products ({products.length})</h2>
                             <Link href="/luxeadmin/add-product" className="btn btn-primary">
-                                Add New Product
+                                + Add New Product
                             </Link>
                         </div>
-                        <p style={{ color: 'var(--color-text-muted)' }}>
-                            Product management coming soon. For now, products are managed in the lib/products.js file.
-                            <br />To add products to database, you'll need to insert them via Supabase dashboard.
-                        </p>
+                        <div className="products-grid">
+                            {products.map((product) => (
+                                <div key={product.id} className="product-card-admin">
+                                    <div className="product-image-admin">
+                                        <Image
+                                            src={product.image || '/images/placeholder.jpg'}
+                                            alt={product.name}
+                                            width={150}
+                                            height={150}
+                                            style={{ objectFit: 'cover' }}
+                                        />
+                                    </div>
+                                    <div className="product-info-admin">
+                                        <h3>{product.name}</h3>
+                                        <p className="product-category">{product.category}</p>
+                                        <div className="product-pricing">
+                                            <span className="price">{formatPrice(product.price)}</span>
+                                            {product.salePrice && (
+                                                <span className="sale-price">{formatPrice(product.salePrice)}</span>
+                                            )}
+                                        </div>
+                                        <div className="product-actions">
+                                            <Link href={`/luxeadmin/edit-product/${product.id}`} className="btn btn-outline btn-sm">
+                                                Edit
+                                            </Link>
+                                            <button
+                                                onClick={() => deleteProduct(product.id)}
+                                                className="btn btn-outline btn-sm"
+                                                style={{ color: '#ef4444', borderColor: '#ef4444' }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {products.length === 0 && (
+                            <div className="no-data">
+                                No products found. Add your first product to get started!
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* CATEGORIES TAB */}
+                {activeTab === 'categories' && (
+                    <div className="categories-section">
+                        <h2>Manage Categories</h2>
+                        <div className="categories-list">
+                            {categories.map((category, index) => (
+                                <div key={index} className="category-item">
+                                    <span>{category.name}</span>
+                                    <span className="category-badge">{products.filter(p => p.category === category.name).length} products</span>
+                                </div>
+                            ))}
+                        </div>
+                        {categories.length === 0 && (
+                            <div className="no-data">
+                                No categories yet. Categories are auto-created when you add products.
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
@@ -333,33 +436,98 @@ export default function AdminDashboard() {
                     cursor: pointer;
                 }
 
-                .status-pending {
-                    color: #f59e0b;
-                    border-color: #f59e0b;
+                .status-pending { color: #f59e0b; border-color: #f59e0b; }
+                .status-confirmed { color: #3b82f6; border-color: #3b82f6; }
+                .status-shipped { color: #8b5cf6; border-color: #8b5cf6; }
+                .status-delivered { color: var(--color-success); border-color: var(--color-success); }
+                .status-cancelled { color: #ef4444; border-color: #ef4444; }
+
+                .products-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    gap: 20px;
                 }
 
-                .status-confirmed {
-                    color: #3b82f6;
-                    border-color: #3b82f6;
+                .product-card-admin {
+                    background: var(--color-surface);
+                    border: 1px solid var(--color-border);
+                    border-radius: var(--radius-lg);
+                    overflow: hidden;
                 }
 
-                .status-shipped {
-                    color: #8b5cf6;
-                    border-color: #8b5cf6;
+                .product-image-admin {
+                    width: 100%;
+                    height: 200px;
+                    background: var(--color-surface-elevated);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
-                .status-delivered {
-                    color: var(--color-success);
-                    border-color: var(--color-success);
+                .product-info-admin {
+                    padding: 15px;
                 }
 
-                .status-cancelled {
-                    color: #ef4444;
-                    border-color: #ef4444;
+                .product-info-admin h3 {
+                    font-size: 16px;
+                    margin-bottom: 5px;
+                }
+
+                .product-category {
+                    font-size: 14px;
+                    color: var(--color-text-muted);
+                    margin-bottom: 10px;
+                }
+
+                .product-pricing {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                    margin-bottom: 15px;
+                }
+
+                .price {
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: var(--color-primary);
+                }
+
+                .sale-price {
+                    font-size: 14px;
+                    color: var(--color-text-muted);
+                    text-decoration: line-through;
+                }
+
+                .product-actions {
+                    display: flex;
+                    gap: 10px;
+                }
+
+                .categories-list {
+                    display: grid;
+                    gap: 10px;
+                }
+
+                .category-item {
+                    background: var(--color-surface);
+                    border: 1px solid var(--color-border);
+                    border-radius: var(--radius-md);
+                    padding: 15px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .category-badge {
+                    background: var(--color-primary);
+                    color: var(--color-text-dark);
+                    padding: 4px 12px;
+                    border-radius: 12px;
+                    font-size: 12px;
                 }
 
                 .no-data {
-                    padding: 40px;
+                    padding: 60px 20px;
                     text-align: center;
                     color: var(--color-text-muted);
                 }
@@ -373,16 +541,20 @@ export default function AdminDashboard() {
                 }
 
                 @media (max-width: 768px) {
+                    .admin-stats {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .products-grid {
+                        grid-template-columns: 1fr;
+                    }
+
                     table {
                         font-size: 14px;
                     }
 
                     th, td {
                         padding: 10px;
-                    }
-
-                    .admin-stats {
-                        grid-template-columns: 1fr;
                     }
                 }
             `}</style>
