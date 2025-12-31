@@ -143,20 +143,22 @@ export default function ProductDetail() {
                             <p className="product-description">{product.description}</p>
 
                             {/* Size Selector */}
-                            <div className="product-options">
-                                <label className="option-label">Size</label>
-                                <div className="size-options">
-                                    {product.sizes.map((size) => (
-                                        <button
-                                            key={size}
-                                            className={`size-btn ${selectedSize === size ? 'active' : ''}`}
-                                            onClick={() => setSelectedSize(size)}
-                                        >
-                                            {size}
-                                        </button>
-                                    ))}
+                            {product.sizes && product.sizes.length > 0 && (
+                                <div className="product-options">
+                                    <label className="option-label">Size</label>
+                                    <div className="size-options">
+                                        {product.sizes.map((size) => (
+                                            <button
+                                                key={size}
+                                                className={`size-btn ${selectedSize === size ? 'active' : ''}`}
+                                                onClick={() => setSelectedSize(size)}
+                                            >
+                                                {size}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* Quantity */}
                             <div className="quantity-selector">
