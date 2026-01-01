@@ -33,11 +33,11 @@ export default function RootLayout({ children }) {
           {/* Winter Sale Announcement Bar */}
           <div className="announcement-bar">
             <div className="announcement-content">
-              <span className="announcement-icon">❄️</span>
+              <span className="announcement-icon">✦</span>
               <span className="announcement-text">
                 <strong>SPECIAL WINTER SALE</strong> — Up to 50% Off on Premium Shawls & Suits
               </span>
-              <span className="announcement-icon">❄️</span>
+              <span className="announcement-icon">✦</span>
             </div>
           </div>
           {children}
