@@ -39,8 +39,8 @@ export default function CartPage() {
         return sum + (price * item.quantity);
     }, 0);
 
-    // Free shipping over Rs. 5,000
-    const shipping = subtotal > 5000 ? 0 : 350;
+    // Free shipping over Rs. 3,000
+    const shipping = subtotal > 3000 ? 0 : 350;
     const total = subtotal + shipping;
 
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -134,7 +134,7 @@ export default function CartPage() {
 
                                 {shipping > 0 && (
                                     <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: 'var(--spacing-sm)' }}>
-                                        Add {formatPrice(5000 - subtotal)} more for free delivery
+                                        Add {formatPrice(3000 - subtotal)} more for free delivery
                                     </p>
                                 )}
 

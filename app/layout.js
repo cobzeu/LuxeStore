@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
             <div className="announcement-content">
               <span className="announcement-icon">❄️</span>
               <span className="announcement-text">
-                <strong>SPECIAL WINTER SALE</strong> — Up to 25% Off on Premium Shawls & Suits
+                <strong>SPECIAL WINTER SALE</strong> — Up to 50% Off on Premium Shawls & Suits
               </span>
               <span className="announcement-icon">❄️</span>
             </div>

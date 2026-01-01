@@ -6,24 +6,40 @@ export default function Hero() {
             <div className="hero-bg"></div>
 
             <div className="hero-content">
-                <span className="hero-badge">New Season Collection</span>
+                <span className="hero-badge">Premium Pakistani Fashion</span>
 
                 <h1 className="hero-title">
-                    Elevate Your Style
+                    Embrace Elegance
                 </h1>
 
                 <p className="hero-subtitle">
-                    Discover our curated collection of premium fashion.
-                    From handcrafted shoes to luxury timepieces, find pieces that define elegance.
+                    Discover our exclusive collection of premium unstitched fabrics,
+                    luxurious wool shawls, and elegant scarves — crafted for those who
+                    appreciate timeless Pakistani artistry and sophistication.
                 </p>
 
                 <div className="hero-cta">
                     <Link href="/shop" className="btn btn-primary">
-                        Shop Collection
+                        Explore Collection
                     </Link>
-                    <Link href="/collections" className="btn btn-secondary">
-                        Explore Categories
+                    <Link href="/collections/shawls" className="btn btn-secondary">
+                        View Shawls
                     </Link>
+                </div>
+
+                <div className="hero-features">
+                    <div className="hero-feature">
+                        <span className="feature-icon">🚚</span>
+                        <span>Free Delivery over Rs. 3,000</span>
+                    </div>
+                    <div className="hero-feature">
+                        <span className="feature-icon">💳</span>
+                        <span>Cash on Delivery</span>
+                    </div>
+                    <div className="hero-feature">
+                        <span className="feature-icon">✨</span>
+                        <span>Premium Quality</span>
+                    </div>
                 </div>
             </div>
 

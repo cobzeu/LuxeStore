@@ -54,8 +54,8 @@ export default function ShippingPolicy() {
                         <section className="policy-section">
                             <h2>Shipping Charges</h2>
                             <ul>
-                                <li><strong>Free Shipping:</strong> On orders above Rs. 5,000</li>
-                                <li><strong>Standard Delivery:</strong> Rs. 350 for orders below Rs. 5,000</li>
+                                <li><strong>Free Shipping:</strong> On orders above Rs. 3,000</li>
+                                <li><strong>Standard Delivery:</strong> Rs. 350 for orders below Rs. 3,000</li>
                                 <li><strong>Cash on Delivery (COD):</strong> Available nationwide</li>
                             </ul>
                         </section>

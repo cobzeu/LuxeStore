@@ -87,7 +87,7 @@ export default function CheckoutPage() {
         return sum + (price * item.quantity);
     }, 0);
 
-    const shipping = subtotal > 5000 ? 0 : 350;
+    const shipping = subtotal > 3000 ? 0 : 350;
     const total = subtotal + shipping;
 
     const formatPrice = (price) => {
@@ -429,7 +429,7 @@ export default function CheckoutPage() {
 
                             {shipping > 0 && (
                                 <p className="free-shipping-note">
-                                    Add {formatPrice(5000 - subtotal)} more for free delivery
+                                    Add {formatPrice(3000 - subtotal)} more for free delivery
                                 </p>
                             )}
 

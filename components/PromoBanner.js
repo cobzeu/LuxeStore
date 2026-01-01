@@ -5,13 +5,13 @@ export default function PromoBanner() {
         <section className="promo-banner">
             <div className="container">
                 <div className="promo-content">
-                    <h2 className="promo-title">Winter Sale - Up to 25% Off</h2>
+                    <h2 className="promo-title">New Year Sale - Up to 50% Off</h2>
                     <p className="promo-text">
-                        Elevate your wardrobe with our premium collection.
-                        Limited time offer on selected items.
+                        Premium shawls, elegant scarves & finest unstitched fabrics.
+                        Free delivery on orders above Rs. 3,000!
                     </p>
                     <Link href="/shop" className="btn promo-btn">
-                        Shop the Sale
+                        Shop Now
                     </Link>
                 </div>
             </div>

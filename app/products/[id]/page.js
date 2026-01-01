@@ -209,7 +209,7 @@ export default function ProductDetail() {
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M5 12l5 5L20 7" />
                                     </svg>
-                                    <span>Free delivery on orders over Rs. 5,000</span>
+                                    <span>Free delivery on orders over Rs. 3,000</span>
                                 </div>
                                 <div className="feature-item">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
