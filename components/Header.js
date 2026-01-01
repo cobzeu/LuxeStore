@@ -127,9 +127,9 @@ export default function Header({ cartCount = 0 }) {
                 <nav className="nav-menu">
                     <Link href="/" className="nav-link">Home</Link>
                     <Link href="/shop" className="nav-link">Shop</Link>
-                    <Link href="/collections" className="nav-link">Collections</Link>
-                    <Link href="/collections/shawl" className="nav-link">Shawls</Link>
-                    <Link href="/collections/men-stitched" className="nav-link">Men</Link>
+                    <Link href="/collections/men-unstitched" className="nav-link">Men's Unstitched</Link>
+                    <Link href="/collections/shawls" className="nav-link">Shawls</Link>
+                    <Link href="/collections/scarves" className="nav-link">Scarves</Link>
                 </nav>
 
                 <div className="header-actions">
@@ -217,9 +217,9 @@ export default function Header({ cartCount = 0 }) {
                     <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
                         <Link href="/" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>
                         <Link href="/shop" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Shop</Link>
-                        <Link href="/collections" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Collections</Link>
-                        <Link href="/collections/shawl" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Shawls</Link>
-                        <Link href="/collections/men-stitched" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Men</Link>
+                        <Link href="/collections/men-unstitched" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Men's Unstitched</Link>
+                        <Link href="/collections/shawls" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Shawls</Link>
+                        <Link href="/collections/scarves" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Scarves</Link>
                         <Link href="/cart" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Cart</Link>
                         {user ? (
                             <>

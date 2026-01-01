@@ -41,9 +41,9 @@ export default function Footer() {
                         <h4>Shop</h4>
                         <nav className="footer-links">
                             <Link href="/shop" className="footer-link">All Products</Link>
-                            <Link href="/collections" className="footer-link">Collections</Link>
-                            <Link href="/collections/shawl" className="footer-link">Shawls</Link>
-                            <Link href="/collections/men-unstitched" className="footer-link">Men's Collection</Link>
+                            <Link href="/collections/men-unstitched" className="footer-link">Men's Unstitched</Link>
+                            <Link href="/collections/shawls" className="footer-link">Shawls</Link>
+                            <Link href="/collections/scarves" className="footer-link">Scarves</Link>
                         </nav>
                     </div>
 
