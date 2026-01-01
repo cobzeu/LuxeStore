@@ -3,10 +3,14 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import BenefitsBar from '@/components/BenefitsBar';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import Collections from '@/components/Collections';
-import Newsletter from '@/components/Newsletter';
+import BrandStory from '@/components/BrandStory';
+import WhyChooseUs from '@/components/WhyChooseUs';
+import Testimonials from '@/components/Testimonials';
 import PromoBanner from '@/components/PromoBanner';
+import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
 import { products, collections } from '@/lib/products';
 
@@ -45,10 +49,31 @@ export default function Home() {
     <>
       <Header cartCount={cartCount} />
       <main>
+        {/* 1. Hero - First impression & main message */}
         <Hero />
+
+        {/* 2. Benefits - Immediate trust signals */}
+        <BenefitsBar />
+
+        {/* 3. Featured Products - Main reason users visit */}
         <FeaturedProducts products={products} onAddToCart={addToCart} />
+
+        {/* 4. Promo Banner - Sale incentive after seeing products */}
         <PromoBanner />
+
+        {/* 5. Shop by Collection - Alternative browsing */}
         <Collections collections={collections} />
+
+        {/* 6. Testimonials - Social proof builds confidence */}
+        <Testimonials />
+
+        {/* 7. Why Choose Us - Brand trust */}
+        <WhyChooseUs />
+
+        {/* 8. Brand Story - For interested visitors */}
+        <BrandStory />
+
+        {/* 9. Newsletter - Final CTA */}
         <Newsletter />
       </main>
       <Footer />
