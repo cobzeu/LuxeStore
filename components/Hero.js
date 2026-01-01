@@ -27,20 +27,7 @@ export default function Hero() {
                     </Link>
                 </div>
 
-                <div className="hero-features">
-                    <div className="hero-feature">
-                        <span className="feature-icon">🚚</span>
-                        <span>Free Delivery over Rs. 3,000</span>
-                    </div>
-                    <div className="hero-feature">
-                        <span className="feature-icon">💳</span>
-                        <span>Cash on Delivery</span>
-                    </div>
-                    <div className="hero-feature">
-                        <span className="feature-icon">✨</span>
-                        <span>Premium Quality</span>
-                    </div>
-                </div>
+
             </div>
 
             <div className="hero-scroll">
