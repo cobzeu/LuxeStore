@@ -140,7 +140,14 @@ export default function ProductDetail() {
                                 )}
                             </div>
 
-                            <p className="product-description">{product.description}</p>
+                            <div
+                                className="product-description"
+                                dangerouslySetInnerHTML={{
+                                    __html: product.description
+                                        .replace(/\n/g, '<br/>')
+                                        .replace(/•/g, '<span class="bullet">•</span>')
+                                }}
+                            />
 
                             {/* Size Selector */}
                             {product.sizes && product.sizes.length > 0 && (
