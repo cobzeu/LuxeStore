@@ -3192,10 +3192,6 @@ h4 {
   padding: var(--spacing-4xl) 0;
 }
 
-.section-padding+.section-padding {
-  padding-top: 0;
-}
-
 .benefits-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
