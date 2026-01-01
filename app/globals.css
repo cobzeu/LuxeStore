@@ -3184,7 +3184,16 @@ h4 {
   background: linear-gradient(135deg, #1a1612 0%, #0d0d0d 100%);
   border-top: 1px solid rgba(201, 169, 110, 0.2);
   border-bottom: 1px solid rgba(201, 169, 110, 0.2);
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-2xl) 0;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.section-padding {
+  padding: var(--spacing-4xl) 0;
+}
+
+.section-padding+.section-padding {
+  padding-top: 0;
 }
 
 .benefits-grid {
